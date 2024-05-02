@@ -1,38 +1,166 @@
-.App {
-  text-align: center;
+body {
+  background-color: black !important;
+  color: white !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.hr-solid {
+  border: 2px solid #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  height: 100vh;
+}
+
+.detail-container {
+  margin: 0 250px;
+}
+
+.badge-style {
+  width: 80px;
+  margin-bottom: 5px;
+}
+
+.nav-item {
+  color : white;
+  text-decoration : none;
+  margin-right : 20px;
+}
+
+.banner {
+  height: 800px;
+  display: flex;
+  align-items: center;
+}
+
+.banner::before {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 800px;
+  content: "";
+  background: linear-gradient(to right, rgb(39, 38, 38), transparent);
+}
+
+.banner-info {
+  width: 40%;
+  margin-left: 30px;
+  z-index: 1;
+}
+
+.movie-card {
+  position: relative;
+  width: 300px; 
+  height: 300px;  
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.movie-card img:hover {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 15px;
+}
+
+.movie-card:hover .overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 15px;
+  opacity: 1;
+  background-color: rgba(43, 41, 41, 0.8);
+  width: 100%;
+  height: 100%;
+}
+
+.movie-card:hover .overlay > img {
+  transform: scale(1.1);
+}
+
+.overlay > div {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: row;
+  padding: 50px 0;
+  min-height: 600px;
+}
+
+.movie-img {
+  width: 50vw;
+  margin-right: 50px;
+}
+
+.movie-img img {
+  width: 100%;
+  min-width: 320px;
+  min-height: 600px;
+}
+
+.movie-desc {
+  width: 50vw;
+  min-width: 320px;
+  min-height: 500px;
+}
+
+.movie-desc span {
+  margin-right: 15px;
+}
+
+.movie-review {
+  padding: 50px;
+  border: 2px solid #ffffff;
+  min-width: 420px;
+}
+
+.movie-buttons {
+  margin-bottom: 15px;
+}
+
+.movie-buttons button {
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.movie-buttons button:focus {
+  background-color: orangered;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 1200px) {
+  .detail-container {
+    padding: 0 50px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .movie-info {
+    flex-direction: column;
+  }
+
+  .movie-img {
+    width: 100%;
+    min-width: 380px;
+    margin-right: 0;
+    margin-bottom: 50px;
+  }
+
+  .movie-desc {
+    width: 100%;
+    min-width: 380px;
   }
 }
