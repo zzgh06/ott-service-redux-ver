@@ -1,21 +1,42 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AxiosMovieDetail } from '../redux/reducers/MovieDetailReducer';
+import { AxiosMovieDetail, detailAction } from '../redux/reducers/MovieDetailReducer';
 import { ClipLoader } from 'react-spinners';
 import { Badge } from 'react-bootstrap';
 import MovieReview from '../components/MovieReview';
+import RelatedMovies from '../components/RelatedMovies';
+import YouTube from 'react-youtube';
 
+
+// 새로운 Redux state 값을 추가하여 detailSlice reducers 를 통해 state 값을 직접 수정
+// 각 버튼 클릭 시 해당 state 값을 업데이트 할 수 있도록 action를 통해 값을 보내서 state 수정
+// 컴포넌트에서 해당 state 값을 읽어와서 조건부로 렌더링합니다.
 const MovieDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { movieDetail, relatedMovies, loading, error } = useSelector(state => state.detail);
+  const { movieDetail, movieReviews, trailer, loading, error } = useSelector(state => state.detail);
+  const showReviews = useSelector(state => state.detail.showReviews);
+  const showRelatedMovies = useSelector(state => state.detail.showRelatedMovies);
+  const opts = {height: '300', width: '480'};
 
-  
   useEffect(() => {
     dispatch(AxiosMovieDetail(id));
   }, [dispatch, id]);
 
+  // REVIEWS 버튼 클릭 시 처리하는 함수
+  const handleShowReviews = () => {
+    dispatch(detailAction.setShowReviews(true));
+    dispatch(detailAction.setShowRelatedMovies(false));
+  };
+
+  // RELATED MOVIES 버튼 클릭 시 처리하는 함수
+  const handleShowRelatedMovies = () => {
+    dispatch(detailAction.setShowRelatedMovies(true));
+    dispatch(detailAction.setShowReviews(false)); 
+  }
+
+  // console.log(trailer.results[0].key)
   return (
     <div>
       {loading ? (
@@ -54,10 +75,17 @@ const MovieDetail = () => {
                 <Badge className='badge-style' bg="danger">상영시간</Badge>
                 {movieDetail.runtime}
               </div>
+              <YouTube videoId={trailer.results[0]?.key} opts={opts} />
             </div>
           </div>
           <div>
-            <MovieReview />
+            <div className='movie-buttons'>
+              <button style={{marginRight:'15px'}} onClick={handleShowReviews}>REVIEWS ({movieReviews.results.length})</button>
+              <button onClick={handleShowRelatedMovies}>RELATED MOVIES</button>
+            </div>
+            {/* 조건부 렌더링 */}
+            {showReviews && <MovieReview />}
+            {showRelatedMovies && <RelatedMovies />}
           </div>
         </div>
       ) : error ? (

@@ -12,7 +12,7 @@ let initialState = {
 }
 const API_KEY=process.env.REACT_APP_API_KEY;
 
-export const AxiosMovies = createAsyncThunk('movies', async (id, thunkApi)=>{
+export const AxiosMovies = createAsyncThunk('movies', async (thunkApi)=>{
   try {
     const popularApi = api.get(`/movie/popular?api_key=${API_KEY}&language=ko-kr&page=1`);
     const topRatedApi = api.get(`/movie/top_rated?api_key=${API_KEY}&language=ko-kr&page=1`);
