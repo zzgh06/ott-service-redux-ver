@@ -171,13 +171,15 @@ body {
 }
 
 .movies-container {
-  margin: 0 250px;
+  display: flex;
+  margin: 50px 250px;
   width: 100%;
 }
 
 .movies-wrap {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   width: 40%;
 }
 
@@ -207,6 +209,10 @@ body {
   height: 100%;
   padding: 20px 15px;
   overflow: hidden; /* 텍스트가 넘칠 경우 생략 */
+}
+
+.sort-movie button {
+  width: 160px;
 }
 
 
