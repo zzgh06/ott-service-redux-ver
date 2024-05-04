@@ -45,8 +45,8 @@ const MovieCard = ({ item, content }) => {
               <Badge key={index} style={{marginRight : '5px'}} bg="danger">{genreList.find(item => item.id === id).name}</Badge>
               )}
             </div>
-            <div style={{fontSize:'9px'}}>
-              {item.overview ? item.overview : ''}
+            <div style={{fontSize:'13px'}}>
+              {item.overview ? item.overview.slice(0, 100) + '...' : ''}
             </div>
             <div style={{fontSize:'10px', fontWeight:'600'}}>
               <span>평점 {(item.vote_average).toFixed(2)} </span>

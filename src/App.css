@@ -206,7 +206,9 @@ body {
   width: 100%;
   height: 100%;
   padding: 20px 15px;
+  overflow: hidden; /* 텍스트가 넘칠 경우 생략 */
 }
+
 
 @media (max-width: 1200px) {
   .detail-container {

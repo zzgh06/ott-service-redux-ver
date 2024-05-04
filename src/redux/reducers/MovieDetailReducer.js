@@ -15,9 +15,9 @@ const API_KEY=process.env.REACT_APP_API_KEY;
 
 export const AxiosMovieDetail = createAsyncThunk('movieDetail', async (id, thunkApi)=>{
   try {
-    const movieDetailApi = api.get(`/movie/${id}?api_key=${API_KEY}&language=ko-kr`);
+    const movieDetailApi = api.get(`/movie/${id}?api_key=${API_KEY}&language=ko&region=kr`);
     const movieReviewApi = api.get(`/movie/${id}/reviews?api_key=${API_KEY}&language=en-US&page=1`)
-    const movieRelatedApi = api.get(`/movie/${id}/recommendations?api_key=${API_KEY}&language=ko-kr&page=1`)
+    const movieRelatedApi = api.get(`/movie/${id}/recommendations?api_key=${API_KEY}&language=ko&region=kr&page=1`)
     const trailerApi = api.get(`movie/${id}/videos?api_key=${API_KEY}&language=ko-kr`)
     let [movieDetail, movieReviews, relatedMovies, trailer] = await Promise.all([movieDetailApi, movieReviewApi, movieRelatedApi, trailerApi]);
     return {

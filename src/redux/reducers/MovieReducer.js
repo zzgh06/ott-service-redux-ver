@@ -12,12 +12,12 @@ let initialState = {
 }
 const API_KEY=process.env.REACT_APP_API_KEY;
 
-export const AxiosMovies = createAsyncThunk('movies', async (thunkApi)=>{
+export const AxiosMovies = createAsyncThunk('movies', async (page=1, thunkApi)=>{
   try {
-    const popularApi = api.get(`/movie/popular?api_key=${API_KEY}&language=ko-kr&page=1`);
-    const topRatedApi = api.get(`/movie/top_rated?api_key=${API_KEY}&language=ko-kr&page=1`);
-    const upcomingApi = api.get(`/movie/upcoming?api_key=${API_KEY}&language=ko-kr&page=1`);
-    const genreApi = api.get(`/genre/movie/list?api_key=${API_KEY}&language=ko-kr`);
+    const popularApi = api.get(`/movie/popular?api_key=${API_KEY}&language=ko&region=kr&page=${page}`);
+    const topRatedApi = api.get(`/movie/top_rated?api_key=${API_KEY}&language=ko&region=kr&page=1`);
+    const upcomingApi = api.get(`/movie/upcoming?api_key=${API_KEY}&language=ko&region=kr&page=1`);
+    const genreApi = api.get(`/genre/movie/list?api_key=${API_KEY}&language=ko&region=kr`);
     let [popularMovies, topRatedMovies, upcomingMovies, genreList] = await Promise.all([popularApi, topRatedApi, upcomingApi, genreApi]);
     return {
       popularMovies: popularMovies.data,
