@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 
-// 검색어 기능 구현하면서 막힌점 api 주소를 얻어오는 방식을 지키지 않아서 요청은 성공했지만 빈값을 리턴해줌!!!!!!!!! 
 const Navigation = () => {
   const [keyword, setKeyword] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate()
 
-  const searchClick = () => {
+  const search = () => {
     setSearchParams({ query: keyword });
+    navigate(`/movies/?query=${keyword}`)
   };
 
+  // 이슈 : 엔터키 이벤트 검색 시 query 이 제대로 전달되지 않음
+  // 엔터키 이벤트가 발생시, 폼 제출 동작이 발생하는데 이로 인해 원하지 않은 동작을 발생시켜 발생한 오류
+  // e.preventDefault(); // 기본 동작 방지
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      console.log(e.target.value)
+      e.preventDefault();
+      search(); 
+    }
+  };
   return (
     <div>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -40,8 +51,9 @@ const Navigation = () => {
                 aria-label="Search"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
+                onKeyPress={handleKeyPress} 
               />
-              <Button variant="outline-danger" onClick={searchClick}>
+              <Button variant="outline-danger" onClick={search}>
                 Search
               </Button>
             </Form>

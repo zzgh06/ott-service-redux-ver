@@ -211,8 +211,35 @@ body {
   overflow: hidden; /* 텍스트가 넘칠 경우 생략 */
 }
 
+.sort-movie .dropdown {
+  margin-bottom: 20px;
+}
+
+.sort-movie .dropdown-menu {
+  width: 200px;
+  padding: 15PX;
+}
+
 .sort-movie button {
-  width: 160px;
+  width: 200px;
+}
+
+.genre-card {
+  width: 220px;
+}
+
+.genre-card .badge {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 30%, rgba(87,87,87,0.2) 65%, rgba(0, 0, 0, 0.85)  99%);
+}
+
+.genre-card h5 {
+  width: 220px;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 
