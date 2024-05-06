@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
   const [keyword, setKeyword] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate()
 
   const search = () => {
     setSearchParams({ query: keyword });
+    navigate(`/movies/?query=${keyword}`)
   };
 
   // 이슈 : 엔터키 이벤트 검색 시 query 이 제대로 전달되지 않음
@@ -20,7 +22,6 @@ const Navigation = () => {
       search(); 
     }
   };
-
   return (
     <div>
       <Navbar bg="dark" variant="dark" expand="lg">
