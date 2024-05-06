@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AxiosMovies, movieActions } from '../redux/reducers/MovieReducer'; 
 
-const Pagination = ({ isSearch, total, limit, setSortBy }) => {
+const Pagination = ({ isSearch, total, limit, setSortBy, filteredMovies }) => {
   const dispatch = useDispatch();
   const {currentPage, popularMovies} = useSelector(state => state.movie); 
-
   const [displayedPages, setDisplayedPages] = useState([]);
-  let numPages = isSearch ? Math.ceil(total/ limit) :  Math.ceil(popularMovies.total_pages / limit);
+  const numPages = isSearch
+    ? Math.ceil(filteredMovies.length / limit)
+    : Math.ceil(popularMovies.total_pages / limit);
+
 
 
   useEffect(() => {
