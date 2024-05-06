@@ -11,7 +11,6 @@ export const AxiosMovieSearch = createAsyncThunk('movie/search', async (searchQu
     // api 주소 방식을 정확하게 지키자 ^^
     const searchListApi = await api.get(`/search/movie?language=ko&region=kr&query=${searchQuery}&api_key=${API_KEY}`);
     return searchListApi.data;
-    
   } catch(error){
     thunkApi.rejectWithValue(error.message)
   }

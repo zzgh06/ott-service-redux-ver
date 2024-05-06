@@ -15,6 +15,7 @@ const Movies = () => {
   const { searchList } = useSelector((state) => state.search);
   const [query] = useSearchParams();
   const searchQuery = query.get('query') || '';
+  console.log(searchQuery)
 
   useEffect(() => {
     dispatch(AxiosMovies(currentPage));
@@ -22,9 +23,10 @@ const Movies = () => {
 
   useEffect(() => {
     dispatch(AxiosMovieSearch(searchQuery));
-  }, [dispatch, searchQuery]);
+  }, [dispatch, searchQuery]);  
 
-  const moviesToDisplay = searchQuery ? searchList.results : popularMovies.results;
+  // const moviesToDisplay = searchQuery ? searchList.results : popularMovies.results;
+  const moviesToDisplay = searchQuery ? searchList?.results : popularMovies?.results;
 
   // 내림차순 정렬
   const popularityDesc = () => {
@@ -71,6 +73,8 @@ const Movies = () => {
         isSearch={moviesToDisplay === searchList.results ? moviesToDisplay.length : null}
         total={moviesToDisplay.length}
         limit={limit}
+        popularityAsc={popularityAsc}
+        setSortBy={setSortBy}
       />
     </>
   );

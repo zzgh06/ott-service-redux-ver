@@ -3,23 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AxiosMovies, movieActions } from '../redux/reducers/MovieReducer'; 
 
-const Pagination = ({ isSearch, total, limit }) => {
+const Pagination = ({ isSearch, total, limit, setSortBy }) => {
   const dispatch = useDispatch();
   const {currentPage, popularMovies} = useSelector(state => state.movie); 
 
   const [displayedPages, setDisplayedPages] = useState([]);
-  const numPages = Math.ceil(popularMovies.total_pages / limit);
+  let numPages = isSearch ? Math.ceil(total/ limit) :  Math.ceil(popularMovies.total_pages / limit);
 
 
   useEffect(() => {
     dispatch(AxiosMovies(currentPage)); // 현재 페이지로 초기 데이터 로드
   }, [dispatch, currentPage]);
 
-  useEffect(() => {
-    if (isSearch) {
-      numPages = Math.ceil(total / limit);
-    }
-  }, [isSearch]);
+
 
   // 페이지 수가 변경될 때마다 현재 페이지를 기준으로 5개의 버튼을 보여주도록 하고, 
   // 이동 버튼들을 추가하여 5단위로 이동
@@ -43,7 +39,8 @@ const Pagination = ({ isSearch, total, limit }) => {
   };
 
   const handleClickPage = (pageNumber) => {
-    dispatch(movieActions.setCurrentPage(pageNumber)); 
+    dispatch(movieActions.setCurrentPage(pageNumber));
+    setSortBy(null);
   };
 
   return (
